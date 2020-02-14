@@ -1,4 +1,4 @@
-#minha tabela CAST tem as seguintes colunas: [actor, id_movie, gender, race]
+#Minha tabela CAST tem as seguintes colunas: [actor, id_movie, gender, race]
 
 for ( i in 1:nrow(cast)) {
 
