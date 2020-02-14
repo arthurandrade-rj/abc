@@ -1,0 +1,86 @@
+#minha tabela CAST tem as seguintes colunas: [actor, id_movie, gender, race]
+
+for ( i in 1:nrow(cast)) {
+
+    #Seleciona o primeiro e ultimo nome do ator/atriz
+    first_name <- word(cast[i,1], 1)
+    last_name <- word(cast[i,1], -1)
+
+    #Monta a URL
+    webpage <- read_html(paste("https://search.nndb.com/search/nndb.cgi?nndb=1&omenu=unspecified&query=", 
+                               first_name, "+", last_name, "/", sep = ""))
+    search_name = paste(first_name, last_name, sep = " ")
+
+    k <- 2
+
+    #Testa se o nome encontrado na página é o mesmo que está sendo pesquisado. 
+    #Se não for, faz o teste no item seguinte (abaixo)
+    while(gsub('</a>.*|.*">', "",   
+            html_nodes(webpage, "table") %>% .[4] %>% 
+            html_nodes(xpath = "//a") %>% .[k]) != search_name) {
+      k <- k + 1
+      if(k > length(html_nodes(webpage, "table") %>% .[4] %>% 
+                    html_nodes(xpath = "//a"))){
+        break
+      }
+    } 
+
+    #Testamos até a totalidade dos resultados (length). Se não encontrarmos, adicionamos "NA"
+    if(k > length(html_nodes(webpage, "table") %>% .[4] %>% 
+                  html_nodes(xpath = "//a"))) {
+
+            cast[i,3] <- "NA"
+            cast[i,4] <- "NA"
+
+          } else {
+    
+    #Caso encontre o resultado, seleciona a URL
+    url <- gsub('">.*|.*="', "",   
+                html_nodes(webpage, "table") %>% .[4] %>% 
+                  html_nodes(xpath = "//a") %>% .[k])
+
+    #Abre a URL e transforma o resultado numa tabela
+    information_actor <-  
+      t(
+      colsplit(
+      map_df(
+      strsplit(
+      gsub(" |<b>|</b>|<p>|</p>|\n|<i>|</i>","",
+           as.character(read_html(url) %>% 
+                          html_nodes("table") %>%
+                          .[5] %>% 
+                          html_nodes(xpath = "//p") %>% .[3])), "<br>"),
+      ~as.data.frame(.)) %>% .[,1], split = ":", names = c("a")))
+
+   #Transforma a primeira linha em nome de coluna
+   colnames(information_actor) <- as.character(unlist(information_actor[1,]))
+    
+   #Transforma em DataFrame
+   information_actor <- data.frame(as.list(information_actor[-1,]), stringsAsFactors = FALSE)   
+
+   #Converte as colunas para Caracteres 
+   #(precisei fazer isso pq esqueci do stringAsFactors = FALSE quando fui montar minha base CAST, mas caso já tenha feito isso, não é necessário)
+   cast$race <- as.character(cast$race)
+   cast$gender <- as.character(cast$gender)
+   
+   #Se houver as colunas, insere as informações na nossa base e FIM
+      
+      if("RaceorEthnicity" %in% colnames(information_actor))
+      {
+        cast[i,4] <- information_actor$RaceorEthnicity
+      } else
+      {
+        cast[i,4] <- "NA"
+      }
+
+
+      if("Gender" %in% colnames(information_actor))
+      {
+        cast[i,3] <- information_actor$Gender
+      } else
+      {
+        cast[i,3] <- "NA"
+      }
+      
+}
+}
