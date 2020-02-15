@@ -1,20 +1,34 @@
 #Minha tabela CAST tem as seguintes colunas: [actor, id_movie, gender, race]
 
-for ( i in 1:nrow(cast)) {
+
+for (i in 1:nrow(cast)) {
 
     #Seleciona o primeiro e ultimo nome do ator/atriz
     first_name <- word(cast[i,1], 1)
     last_name <- word(cast[i,1], -1)
-
-    #Monta a URL
-    webpage <- read_html(paste("https://search.nndb.com/search/nndb.cgi?nndb=1&omenu=unspecified&query=", 
-                               first_name, "+", last_name, "/", sep = ""))
+    
+    #Testa se a URL existe, se não existir, insere "NA" nas colunas
+    if(url.exists(paste("https://search.nndb.com/search/nndb.cgi?nndb=1&omenu=unspecified&query=", 
+                        first_name, "+", last_name, "/", sep = "")) != TRUE)
+    {
+      cast[i,3] <- "NA"
+      cast[i,4] <- "NA"} else
+    {
+    
+    #Monta a URL, baixa e depois lê (fazemos isso para evitar timeout)
+    download.file(paste("https://search.nndb.com/search/nndb.cgi?nndb=1&omenu=unspecified&query=", 
+                        first_name, "+", last_name, "/", sep = ""), 
+                        destfile = paste("C:/Users/arthu/Documents/",first_name,"_", last_name, ".html"), quiet = TRUE)
+    
+    webpage <- read_html (paste("C:/Users/arthu/Documents/",first_name,"_", last_name, ".html"))
+    
     search_name = paste(first_name, last_name, sep = " ")
 
     k <- 2
 
     #Testa se o nome encontrado na página é o mesmo que está sendo pesquisado. 
     #Se não for, faz o teste no item seguinte (abaixo)
+    
     while(gsub('</a>.*|.*">', "",   
             html_nodes(webpage, "table") %>% .[4] %>% 
             html_nodes(xpath = "//a") %>% .[k]) != search_name) {
@@ -25,7 +39,7 @@ for ( i in 1:nrow(cast)) {
       }
     } 
 
-    #Testamos até a totalidade dos resultados (length). Se não encontrarmos, adicionamos "NA"
+    #Procura o nome em todos os k resultados da pesquisa
     if(k > length(html_nodes(webpage, "table") %>% .[4] %>% 
                   html_nodes(xpath = "//a"))) {
 
@@ -35,6 +49,7 @@ for ( i in 1:nrow(cast)) {
           } else {
     
     #Caso encontre o resultado, seleciona a URL
+            
     url <- gsub('">.*|.*="', "",   
                 html_nodes(webpage, "table") %>% .[4] %>% 
                   html_nodes(xpath = "//a") %>% .[k])
@@ -58,13 +73,20 @@ for ( i in 1:nrow(cast)) {
    #Transforma em DataFrame
    information_actor <- data.frame(as.list(information_actor[-1,]), stringsAsFactors = FALSE)   
 
-   #Converte as colunas para Caracteres 
-   #(precisei fazer isso pq esqueci do stringAsFactors = FALSE quando fui montar minha base CAST, mas caso já tenha feito isso, não é necessário)
+   #Converte minhas colunas para Caracteres (precisei fazer isso pq esqueci do stringAsFactors = FALSE quando fui montar minha base)
    cast$race <- as.character(cast$race)
    cast$gender <- as.character(cast$gender)
    
-   #Se houver as colunas, insere as informações na nossa base e FIM
-      
+   #Insere as informações na nossa base e FIM
+   
+     if("Gender" %in% colnames(information_actor))
+     {
+       cast[i,3] <- information_actor$Gender
+     } else
+     {
+       cast[i,3] <- "NA"
+     }
+     
       if("RaceorEthnicity" %in% colnames(information_actor))
       {
         cast[i,4] <- information_actor$RaceorEthnicity
@@ -72,15 +94,6 @@ for ( i in 1:nrow(cast)) {
       {
         cast[i,4] <- "NA"
       }
-
-
-      if("Gender" %in% colnames(information_actor))
-      {
-        cast[i,3] <- information_actor$Gender
-      } else
-      {
-        cast[i,3] <- "NA"
-      }
-      
-}
-}
+        }      
+          }
+            }
