@@ -1,10 +1,10 @@
 ---
 layout: page
-title: About Me
+title: Sobre mim
 ---
 
-Sobre mim:
-24 anos, graduando em Engenharia de Produção pela UERJ, analista financeiro pela TIM.
-Sou apaixonado por cinema, hip hop e futebol. 
-Resolvi criar esse blog pra postar minhas análises.
-
+<p> 24 anos, graduando em Engenharia de Produção pela UERJ, analista financeiro pela TIM. </p>
+<p> Tenho experiência em análise e gerenciamento de dados através de diversas plataformas. </p>
+<p> Alguma duvida, crítica ou sugestão? Me grita lá: </p>
+  *arthurandrade.rj@hotmail.com* </br>
+  *55 21 981133625* </br>
