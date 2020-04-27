@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Coursework
+title: About Me
 ---
 
 Sobre mim:
