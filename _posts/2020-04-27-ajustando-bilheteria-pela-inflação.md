@@ -74,12 +74,16 @@ Nessa etapa final, criaremos as fórmulas necessárias para chegar ao nosso resu
 
 **Formula 1: cum_inflation (Inflação Acumulada)**
 
-Essa primeira fórmula é a mais importante. Primeiro, criaremos uma variável chamada min_date, que me dará a data mínima a ser retornada. Porque criamos essa variável? Porque quando estamos trabalhando com datas, precisamos tomar cuidado com sua hierarquia. Campos de data geralmente se hierarquizam em Ano/Trimestre/Mês/Dia. Isso significa que podemos ver a receita dos filmes lançados tanto no ano todo quanto num mês específico. Para fins de simplificação, a inflação de 1990 até 2020 será considerada desde Jan/1990 até o ultimo mês de 2020.
+Essa primeira fórmula é a mais importante. 
+
+Primeiro, criaremos uma variável chamada **min_date**, que me dará a data mínima a ser retornada. Porque criamos essa variável? Porque quando estamos trabalhando com datas, precisamos tomar cuidado com sua hierarquia. Campos de data geralmente se hierarquizam em Ano/Trimestre/Mês/Dia. 
+
+Isso significa que podemos ver a receita dos filmes lançados tanto no ano todo quanto num mês específico. Para fins de simplificação, a inflação de 1990 até 2020 será considerada desde Jan/1990 até o ultimo mês de 2020.
 
     cum_inflation = 
-    VAR min_date = IF(ISINSCOPE(inflation_table[Date].[Ano]);
-    DATE(MIN(inflation_table[Date].[Ano]);1;1);
-    MIN(inflation_table[Date]))
+        VAR min_date = IF(ISINSCOPE(inflation_table[Date].[Ano]);
+        DATE(MIN(inflation_table[Date].[Ano]);1;1);
+        MIN(inflation_table[Date]))
     
 
     RETURN
@@ -89,9 +93,9 @@ Essa primeira fórmula é a mais importante. Primeiro, criaremos uma variável c
         CALCULATE(MAX('inflation_table'[Date]);ALL(inflation_table))        
     ))
 
-A função ISINSCOPE testará se você está usando uma hierarquia ou não. Se estiver usando uma hierarquia de ano, a variável retornará a menor data de Janeiro. Se não, retornará a própria data. Por exemplo: se estivermos vendo filmes lançados em 01/04/1990 na hierarquia anual, então o mês de base para o cálculo será 01/01/1990. Se não estivermos vendo na hierarquia, o mês base será o próprio 01/04/1990.
+A função **ISINSCOPE** testa se você está usando uma hierarquia ou não. Se estiver usando uma hierarquia de ano, a variável retornará a menor data de Janeiro. Se não, retornará a própria data. Por exemplo: se estivermos vendo filmes lançados em 01/04/1990 na hierarquia anual, então o mês de base para o cálculo será 01/01/1990. Se não estivermos vendo na hierarquia, o mês base será o próprio 01/04/1990.
 
-Como retorno, usaremos o CALCULATE (que filtra e depois calcula) para trazer o PRODUCTX dentro da inflation_table, na fórmula padrão de inflação acumulada (1 + valor/100). O filtro será as datas entre min_date (que calculamos anteriormente) e a maior data de todas disponível da tabela (que hoje é o dia 01/03/2020). Por isso usamos o artifício ALL. Ou seja: estaremos querendo calcular qual a inflação acumulada em Jan/1990 até hoje, em Abr/1990 até hoje, e assim em diante...
+Como retorno, usaremos o **CALCULATE** (que filtra e depois calcula) para trazer o **PRODUCTX** dentro da inflation_table, na fórmula padrão de inflação acumulada (1 + valor/100). O filtro será as datas entre **min_date** (que calculamos anteriormente) e a maior data de todas disponível da tabela (que hoje é o dia 01/03/2020). Por isso usamos o artifício **ALL**. Ou seja: estaremos querendo calcular qual a inflação acumulada em Jan/1990 até hoje, em Abr/1990 até hoje, e assim em diante...
 
 **Fórmula 2: adjusted_revenue (Receita Ajustada)**
 
