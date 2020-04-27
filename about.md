@@ -7,4 +7,4 @@ title: Sobre mim
 <p> Tenho experiência em análise e gerenciamento de dados através de diversas plataformas. </p>
 <p> Alguma duvida, crítica ou sugestão? Me grita lá: </p>
    *arthurandrade.rj@hotmail.com*
-  <br> *55 21 981133625* </br>
+  <br> *55 21 981133625*
