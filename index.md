@@ -1,4 +1,5 @@
-##Sobre mim
+#Sobre mim
+
 24 anos, graduando em Engenharia de Produção pela UERJ e analista financeiro na TIM. Apaixonado por cinema, hip hop e futebol, aqui será meu repositório de artigos e análises sobre os mais variados temas.
 Segue um resumo do que eu faço atualmente:
 
