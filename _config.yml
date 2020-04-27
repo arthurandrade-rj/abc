@@ -1,5 +1,26 @@
 theme: minimal
-title: _data hero
+title: _Arthur Andrade
+url: https://arthurandrade-rj.github.io
+baseurl: ""
+description: "_Arthur Andrade Homepage"
+keywords: "Chandan Singh, Machine Learning, Berkeley, Interpretability, Explainability"
+collections:
+ research_ovws:
+    name: research_ovws
+    output: true
+ blog:
+    name: blog
+    output: true
+ notes:
+    name: Notes
+    documentation: https://github.com/Shopify/liquid/wiki/Liquid-for-Designers
+    output: true
+ timeline_blurbs:
+    name: timeline_blurbs
+    output: true
+markdown: kramdown
+highlighter: rouge
+exclude: ["Rakefile", "LICENSE", "readme.md"]
 
 owner:
   name: Arthur Andrade
@@ -14,4 +35,3 @@ footer-links:
   email: arthurandrade.rj@hotmail.com
   linkedin: arthurandraderj
 
-url: http://https://arthurandrade-rj.github.io
