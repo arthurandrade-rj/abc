@@ -10,20 +10,6 @@ owner:
   # Do not include the @ symbol in your Twitter username
   linkedin: arthurandraderj
   github: arthurandrade-rj
-  
-layout: page
-title: "teste de post"
-date: 2020-04-27 11:43:25 -0000
-categories: CATEGORY-1 CATEGORY-2
 
-  
-layout: page
-title: "[Power BI] Dinheiro e Cinema"
-date: 2020-04-27 11:43:25 -0000
-categories: CATEGORY-1 CATEGORY-2
-excerpt: "Como ajustar valores pela inflação automaticamente"
-tags: [powerBI, cinema, inflação, tutorial]
-comments: true
-category: blog
 
 
