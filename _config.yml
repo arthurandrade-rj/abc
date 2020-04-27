@@ -1,6 +1,5 @@
 theme: minima
 title: _data hero
-description: analistas do mundo todo, uni-vos
 
 owner:
   name: Arthur Andrade
@@ -11,5 +10,8 @@ owner:
   linkedin: arthurandraderj
   github: arthurandrade-rj
 
+footer-links:
+  email: arthurandrade.rj@hotmail.com
+  linkedin: arthurandraderj
 
-
+url: http://https://arthurandrade-rj.github.io
