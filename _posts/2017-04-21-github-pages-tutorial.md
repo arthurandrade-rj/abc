@@ -1,7 +1,8 @@
 ---
 layout: post
-title: [Power BI] Dinheiro e Cinema
+title: "[Power BI] Dinheiro e Cinema"
 excerpt: "Como ajustar valores pela inflação automaticamente"
+date: 2020-04-27 11:50:23 -0000
 tags: [powerBI, cinema, inflação, tutorial]
 comments: true
 category: blog
