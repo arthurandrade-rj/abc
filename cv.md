@@ -1,6 +1,6 @@
 ---
 layout: page
-title: About Me
+title: CV
 ---
 
 I have strong experience in data management and data analysis through several tools such as R Studio, Excel, SQL Server, Access, PowerBI (M language and DAX). 
