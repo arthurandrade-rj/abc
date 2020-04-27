@@ -1,3 +1,8 @@
+---
+layout: page
+title: Coursework
+---
+
 I have strong experience in data management and data analysis through several tools such as R Studio, Excel, SQL Server, Access, PowerBI (M language and DAX). 
 I have worked in the IT market, in the real estate market and currently work in the telecommunications sector. 
 
