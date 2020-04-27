@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Ajustando a bilheteria de filmes pela inflação, automaticamente"
+title: "Ajustando automaticamente bilheteria de filmes pela inflação"
 excerpt: "Como ajustar valores pela inflação automaticamente"
 date: 2020-04-27 11:50:23 -0000
 tags: [powerBI, cinema, inflação, tutorial]
@@ -12,9 +12,6 @@ Esse foi tema de uma das minhas aulas de Business Intelligence com Power BI, min
 
 Se vocês forem na Wikipedia, poderão ver que dos 100 filmes com as maiores bilheterias, 95 foram lançados após os anos 2000. Mas com um detalhe: esses valores não estão ajustados de acordo com a inflação.
 
-
-
-
 Eu sempre achei isso curioso e resolvi me perguntar: a indústria cinematográfica mudou tanto assim ou foi o dinheiro que ficou mais forte?
 
 Para começar a responder essa questão, vamos tentar ajustar valores de bilheteria de filmes a partir da inflação. Como os valores estão em dólar americano, vou ajustar pela inflação dos EUA. No final da publicação, vcs poderão encontrar o código em linguagem M, e no próximo post faremos a mesma coisa, mas utilizando o R!
@@ -24,12 +21,12 @@ O conjunto de dados primário que utilizaremos é o "movies_metadata.csv" descri
 
 Depois que você já baixou e importou o dataset de filmes pro Power BI, nós vamos precisar [deste site] (https://www.usinflationcalculator.com/inflation/current-inflation-rates/), que nos dará informações sobre a inflação.
 
-**Passo 1:** importar a tabela do site "US Inflation Calculator"
+__Passo 1:__ importar a tabela do site "US Inflation Calculator"
 
 
 
 
-** Passo 2:** Selecionar todas as colunas de Jan a Dec, ir até a guia "Transformar" e transpôr as colunas em linhas
+Passo 2: Selecionar todas as colunas de Jan a Dec, ir até a guia "Transformar" e transpôr as colunas em linhas
 
 
 ** Passo 3:** Adicionar uma coluna condicional que transforme o texto de mês em valores
