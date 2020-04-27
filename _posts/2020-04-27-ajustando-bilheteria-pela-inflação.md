@@ -12,7 +12,7 @@ Esse foi tema de uma das minhas aulas de Business Intelligence com Power BI, min
 
 Se vocês forem na Wikipedia, poderão ver que dos 100 filmes com as maiores bilheterias, 95 foram lançados após os anos 2000. Mas com um detalhe: esses valores não estão ajustados de acordo com a inflação.
 
-Eu sempre achei isso curioso e resolvi me perguntar: a indústria cinematográfica mudou tanto assim ou foi o dinheiro que ficou mais forte?
+Eu sempre achei isso curioso e resolvi me perguntar: **a indústria cinematográfica mudou tanto assim ou foi o dinheiro que ficou mais forte?**
 
 Para começar a responder essa questão, vamos tentar ajustar valores de bilheteria de filmes a partir da inflação. Como os valores estão em dólar americano, vou ajustar pela inflação dos EUA. No final da publicação, vcs poderão encontrar o código em linguagem M, e no próximo post faremos a mesma coisa, mas utilizando o R!
 
