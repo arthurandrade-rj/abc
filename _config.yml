@@ -1,3 +1,12 @@
 theme: minima
 title: _data hero
 description: analistas do mundo todo, uni-vos
+
+owner:
+  name: Arthur Andrade
+  avatar: bio-photo.jpg
+  bio: "23 anos, Graduando em Engenharia de Produção pela UERJ, analista financeiro na TIM."
+  email: arthurandrade.rj@hotmail.com
+  # Do not include the @ symbol in your Twitter username
+  linkedin: arthurandraderj
+  github: arthurandrade-rj
