@@ -24,40 +24,40 @@ O conjunto de dados primário que utilizaremos é o "movies_metadata.csv" descri
 
 Depois que você já baixou e importou o dataset de filmes pro Power BI, nós vamos precisar [deste site] (https://www.usinflationcalculator.com/inflation/current-inflation-rates/), que nos dará informações sobre a inflação.
 
-###### Passo 1: importar a tabela do site "US Inflation Calculator"
+**Passo 1:** importar a tabela do site "US Inflation Calculator"
 
 
 
 
-###### Passo 2: Selecionar todas as colunas de Jan a Dec, ir até a guia "Transformar" e transpôr as colunas em linhas
+** Passo 2:** Selecionar todas as colunas de Jan a Dec, ir até a guia "Transformar" e transpôr as colunas em linhas
 
 
-###### Passo 3: Adicionar uma coluna condicional que transforme o texto de mês em valores
-
-
-
-###### Passo 4: Você precisará transformar a coluna de Ano (Year) e Numero de Mês (n_month) em texto, e a coluna valor em número decimal
+** Passo 3:** Adicionar uma coluna condicional que transforme o texto de mês em valores
 
 
 
-###### Passo 5: Vá até a guia "Adicionar coluna" e crie uma coluna personalizada, cujo valor será uma concatenação entre Numero do Mês e Ano
+** Passo 4:** Você precisará transformar a coluna de Ano (Year) e Numero de Mês (n_month) em texto, e a coluna valor em número decimal
+
+
+
+** Passo 5:** Vá até a guia "Adicionar coluna" e crie uma coluna personalizada, cujo valor será uma concatenação entre Numero do Mês e Ano
 
 
 
 
-###### Passo 6: Seu novo campo precisa ser categorizado como data. Para isso, clique na coluna e selecione a opção "Usar Localidade" na lista. No campo "Tipo de Dados" selecione Data e em Localidade selecione Português (Brasil).
+** Passo 6:** Seu novo campo precisa ser categorizado como data. Para isso, clique na coluna e selecione a opção "Usar Localidade" na lista. No campo "Tipo de Dados" selecione Data e em Localidade selecione Português (Brasil).
 
 
 
-###### Passo 7: Na sua tabela "movies_table", transforme o campo "release_date" em Data. Mas atenção! Como esse campo está no formato americano (padrão) ele pode tanto ser transformado diretamente, quanto utilizando a opção "Usar Localidade...", e escolhendo o país EUA.
+** Passo 7:** Na sua tabela "movies_table", transforme o campo "release_date" em Data. Mas atenção! Como esse campo está no formato americano (padrão) ele pode tanto ser transformado diretamente, quanto utilizando a opção "Usar Localidade...", e escolhendo o país EUA.
 
 
 
-###### Passo 8: Você perceberá que alguns valores trarão erro. Por exemplo, é impossível categorizar "N/A" como data. Para isso, vamos tratar da seguinte forma: toda vez que algum valor for considerado erro, substituiremos por "null". Clique no botão direito, escolha a opção "Substituir erros..." e coloque null no campo de valor.
+** Passo 8:** Você perceberá que alguns valores trarão erro. Por exemplo, é impossível categorizar "N/A" como data. Para isso, vamos tratar da seguinte forma: toda vez que algum valor for considerado erro, substituiremos por "null". Clique no botão direito, escolha a opção "Substituir erros..." e coloque null no campo de valor.
 
 
 
-###### Passo 9: A nossa missão dentro do Power Query terminou. Você já pode clicar em Fechar e Aplicar e passar para a tela do Power BI. Aqui, criaremos uma coluna que nos trará o valor de "release_date" ajustado, ou seja: apenas o primeiro dia do mês, até pq, nós não vemos inflação por dia. Para isso, abra a sua tabela no Power BI, e crie a seguinte coluna calculada:
+** Passo 9:** A nossa missão dentro do Power Query terminou. Você já pode clicar em Fechar e Aplicar e passar para a tela do Power BI. Aqui, criaremos uma coluna que nos trará o valor de "release_date" ajustado, ou seja: apenas o primeiro dia do mês, até pq, nós não vemos inflação por dia. Para isso, abra a sua tabela no Power BI, e crie a seguinte coluna calculada:
 
 
 
@@ -75,7 +75,7 @@ Nessa etapa final, criaremos as fórmulas necessárias para chegar ao nosso resu
 
 
 
-###### Formula 1: cum_inflation (Inflação Acumulada)
+** Formula 1: cum_inflation (Inflação Acumulada)**
 
 Essa primeira fórmula é a mais importante. Primeiro, criaremos uma variável chamada min_date, que me dará a data mínima a ser retornada. Porque criamos essa variável? Porque quando estamos trabalhando com datas, precisamos tomar cuidado com sua hierarquia. Campos de data geralmente se hierarquizam em Ano/Trimestre/Mês/Dia. Isso significa que podemos ver a receita dos filmes lançados tanto no ano todo quanto num mês específico. Para fins de simplificação, a inflação de 1990 até 2020 será considerada desde Jan/1990 até o ultimo mês de 2020.
 
@@ -96,11 +96,11 @@ A função ISINSCOPE testará se você está usando uma hierarquia ou não. Se e
 
 Como retorno, usaremos o CALCULATE (que filtra e depois calcula) para trazer o PRODUCTX dentro da inflation_table, na fórmula padrão de inflação acumulada (1 + valor/100). O filtro será as datas entre min_date (que calculamos anteriormente) e a maior data de todas disponível da tabela (que hoje é o dia 01/03/2020). Por isso usamos o artifício ALL. Ou seja: estaremos querendo calcular qual a inflação acumulada em Jan/1990 até hoje, em Abr/1990 até hoje, e assim em diante...
 
-###### Fórmula 2: adjusted_revenue (Receita Ajustada)
+** Fórmula 2: adjusted_revenue (Receita Ajustada)**
 
 Depois disso, é só alegria. Basta multiplicar os valores de receita (revenue) pelo valor da inflação que acabamos de calcular!
 
-adjusted_revenue = SUM(movies_table[revenue])*[cum_inflation]
+    adjusted_revenue = SUM(movies_table[revenue])*[cum_inflation]
 
 # 4. O resultado...
 Tcharam!
